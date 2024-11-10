@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.earth.station.mapper.StationMapper">
+  <resultMap id="BaseResultMap" type="com.earth.station.model.Station">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="station_no" jdbcType="VARCHAR" property="stationNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="has_watch" jdbcType="VARCHAR" property="hasWatch" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="lng" jdbcType="VARCHAR" property="lng" />
+    <result column="elevation" jdbcType="VARCHAR" property="elevation" />
+    <result column="build_time" jdbcType="VARCHAR" property="buildTime" />
+    <result column="test_eq" jdbcType="INTEGER" property="testEq" />
+    <result column="strong_eq" jdbcType="INTEGER" property="strongEq" />
+    <result column="tm" jdbcType="INTEGER" property="tm" />
+    <result column="liquid" jdbcType="INTEGER" property="liquid" />
+    <result column="gnss" jdbcType="INTEGER" property="gnss" />
+    <result column="gravity" jdbcType="INTEGER" property="gravity" />
+    <result column="deformation" jdbcType="INTEGER" property="deformation" />
+    <result column="aid" jdbcType="INTEGER" property="aid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, station_no, name, level, has_watch, lat, lng, elevation, build_time, test_eq, 
+    strong_eq, tm, liquid, gnss, gravity, deformation, aid
+  </sql>
+  <select id="selectByExample" parameterType="com.earth.station.model.StationCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from station
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="offset != null and limit != null">
+      limit ${offset}, ${limit}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from station
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from station
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.earth.station.model.StationCriteria">
+    delete from station
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.earth.station.model.Station">
+    insert into station (id, station_no, name, 
+      level, has_watch, lat, 
+      lng, elevation, build_time, 
+      test_eq, strong_eq, tm, 
+      liquid, gnss, gravity, 
+      deformation, aid)
+    values (#{id,jdbcType=INTEGER}, #{stationNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{level,jdbcType=VARCHAR}, #{hasWatch,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
+      #{lng,jdbcType=VARCHAR}, #{elevation,jdbcType=VARCHAR}, #{buildTime,jdbcType=VARCHAR}, 
+      #{testEq,jdbcType=INTEGER}, #{strongEq,jdbcType=INTEGER}, #{tm,jdbcType=INTEGER}, 
+      #{liquid,jdbcType=INTEGER}, #{gnss,jdbcType=INTEGER}, #{gravity,jdbcType=INTEGER}, 
+      #{deformation,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.earth.station.model.Station">
+    insert into station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stationNo != null">
+        station_no,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="hasWatch != null">
+        has_watch,
+      </if>
+      <if test="lat != null">
+        lat,
+      </if>
+      <if test="lng != null">
+        lng,
+      </if>
+      <if test="elevation != null">
+        elevation,
+      </if>
+      <if test="buildTime != null">
+        build_time,
+      </if>
+      <if test="testEq != null">
+        test_eq,
+      </if>
+      <if test="strongEq != null">
+        strong_eq,
+      </if>
+      <if test="tm != null">
+        tm,
+      </if>
+      <if test="liquid != null">
+        liquid,
+      </if>
+      <if test="gnss != null">
+        gnss,
+      </if>
+      <if test="gravity != null">
+        gravity,
+      </if>
+      <if test="deformation != null">
+        deformation,
+      </if>
+      <if test="aid != null">
+        aid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stationNo != null">
+        #{stationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="hasWatch != null">
+        #{hasWatch,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="elevation != null">
+        #{elevation,jdbcType=VARCHAR},
+      </if>
+      <if test="buildTime != null">
+        #{buildTime,jdbcType=VARCHAR},
+      </if>
+      <if test="testEq != null">
+        #{testEq,jdbcType=INTEGER},
+      </if>
+      <if test="strongEq != null">
+        #{strongEq,jdbcType=INTEGER},
+      </if>
+      <if test="tm != null">
+        #{tm,jdbcType=INTEGER},
+      </if>
+      <if test="liquid != null">
+        #{liquid,jdbcType=INTEGER},
+      </if>
+      <if test="gnss != null">
+        #{gnss,jdbcType=INTEGER},
+      </if>
+      <if test="gravity != null">
+        #{gravity,jdbcType=INTEGER},
+      </if>
+      <if test="deformation != null">
+        #{deformation,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.earth.station.model.StationCriteria" resultType="java.lang.Long">
+    select count(*) from station
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update station
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stationNo != null">
+        station_no = #{record.stationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hasWatch != null">
+        has_watch = #{record.hasWatch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lat != null">
+        lat = #{record.lat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lng != null">
+        lng = #{record.lng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.elevation != null">
+        elevation = #{record.elevation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildTime != null">
+        build_time = #{record.buildTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testEq != null">
+        test_eq = #{record.testEq,jdbcType=INTEGER},
+      </if>
+      <if test="record.strongEq != null">
+        strong_eq = #{record.strongEq,jdbcType=INTEGER},
+      </if>
+      <if test="record.tm != null">
+        tm = #{record.tm,jdbcType=INTEGER},
+      </if>
+      <if test="record.liquid != null">
+        liquid = #{record.liquid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gnss != null">
+        gnss = #{record.gnss,jdbcType=INTEGER},
+      </if>
+      <if test="record.gravity != null">
+        gravity = #{record.gravity,jdbcType=INTEGER},
+      </if>
+      <if test="record.deformation != null">
+        deformation = #{record.deformation,jdbcType=INTEGER},
+      </if>
+      <if test="record.aid != null">
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update station
+    set id = #{record.id,jdbcType=INTEGER},
+      station_no = #{record.stationNo,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      has_watch = #{record.hasWatch,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=VARCHAR},
+      lng = #{record.lng,jdbcType=VARCHAR},
+      elevation = #{record.elevation,jdbcType=VARCHAR},
+      build_time = #{record.buildTime,jdbcType=VARCHAR},
+      test_eq = #{record.testEq,jdbcType=INTEGER},
+      strong_eq = #{record.strongEq,jdbcType=INTEGER},
+      tm = #{record.tm,jdbcType=INTEGER},
+      liquid = #{record.liquid,jdbcType=INTEGER},
+      gnss = #{record.gnss,jdbcType=INTEGER},
+      gravity = #{record.gravity,jdbcType=INTEGER},
+      deformation = #{record.deformation,jdbcType=INTEGER},
+      aid = #{record.aid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.earth.station.model.Station">
+    update station
+    <set>
+      <if test="stationNo != null">
+        station_no = #{stationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="hasWatch != null">
+        has_watch = #{hasWatch,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null">
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lng != null">
+        lng = #{lng,jdbcType=VARCHAR},
+      </if>
+      <if test="elevation != null">
+        elevation = #{elevation,jdbcType=VARCHAR},
+      </if>
+      <if test="buildTime != null">
+        build_time = #{buildTime,jdbcType=VARCHAR},
+      </if>
+      <if test="testEq != null">
+        test_eq = #{testEq,jdbcType=INTEGER},
+      </if>
+      <if test="strongEq != null">
+        strong_eq = #{strongEq,jdbcType=INTEGER},
+      </if>
+      <if test="tm != null">
+        tm = #{tm,jdbcType=INTEGER},
+      </if>
+      <if test="liquid != null">
+        liquid = #{liquid,jdbcType=INTEGER},
+      </if>
+      <if test="gnss != null">
+        gnss = #{gnss,jdbcType=INTEGER},
+      </if>
+      <if test="gravity != null">
+        gravity = #{gravity,jdbcType=INTEGER},
+      </if>
+      <if test="deformation != null">
+        deformation = #{deformation,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null">
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.earth.station.model.Station">
+    update station
+    set station_no = #{stationNo,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      has_watch = #{hasWatch,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      lng = #{lng,jdbcType=VARCHAR},
+      elevation = #{elevation,jdbcType=VARCHAR},
+      build_time = #{buildTime,jdbcType=VARCHAR},
+      test_eq = #{testEq,jdbcType=INTEGER},
+      strong_eq = #{strongEq,jdbcType=INTEGER},
+      tm = #{tm,jdbcType=INTEGER},
+      liquid = #{liquid,jdbcType=INTEGER},
+      gnss = #{gnss,jdbcType=INTEGER},
+      gravity = #{gravity,jdbcType=INTEGER},
+      deformation = #{deformation,jdbcType=INTEGER},
+      aid = #{aid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="batchInsert">
+    <if test="items.get(0) != null">
+            insert into station  (id, station_no, name, 
+        level, has_watch, lat, 
+        lng, elevation, build_time, 
+        test_eq, strong_eq, tm, 
+        liquid, gnss, gravity, 
+        deformation, aid)
+      values
+      <foreach collection="items" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.stationNo,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, 
+        #{item.level,jdbcType=VARCHAR}, #{item.hasWatch,jdbcType=VARCHAR}, #{item.lat,jdbcType=VARCHAR}, 
+        #{item.lng,jdbcType=VARCHAR}, #{item.elevation,jdbcType=VARCHAR}, #{item.buildTime,jdbcType=VARCHAR}, 
+        #{item.testEq,jdbcType=INTEGER}, #{item.strongEq,jdbcType=INTEGER}, #{item.tm,jdbcType=INTEGER}, 
+        #{item.liquid,jdbcType=INTEGER}, #{item.gnss,jdbcType=INTEGER}, #{item.gravity,jdbcType=INTEGER}, 
+        #{item.deformation,jdbcType=INTEGER}, #{item.aid,jdbcType=INTEGER})
+      </foreach>
+    </if>
+  </insert>
+</mapper>

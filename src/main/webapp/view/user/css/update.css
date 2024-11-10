@@ -1,0 +1,83 @@
+body{
+	width: 100%;
+	height:100%;
+	background-color: #f3f7fb;
+}
+.body-box{
+	width: 100%;
+	height:100%;
+	display: flex;
+	flex-direction: column;
+	min-height:100vh;
+}
+.header{
+	display: flex;
+	align-items: center;
+	height: 34px;
+	background: #d6dde1;
+}
+.header h2{
+	background: url(../../../../source/image/header_icon.png) no-repeat;
+	padding: 0 0 0 20px;
+	margin: 0 0 0 12px;
+}
+.form-outer-box{
+	padding: 12px;
+	flex: 1;
+}
+.form-box{
+	background-color: #fff;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+}
+.form-box .row{
+	display: flex;
+	align-items: center;
+	margin: 0 0 30px 0;
+}
+.form-box .row .lbl{
+	display: inline-block;
+	width: 100px;
+	text-align: right;
+	padding: 0 4px 0 0;
+	flex-shrink: 0;
+}
+.form-box .row .inp{
+	border: 1px solid #e7e7e7;
+	outline: 0;
+	padding: 0 5px 0 5px;
+	height: 28px;
+	line-height: 28px;
+	font-size: 13px;
+	width: 220px;
+}
+.form-box .row .inp:focus{
+	border: 1px solid #2aafff;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    color: #333
+}
+.form-box .row .inp::-webkit-input-placeholder{
+    color: #ccc
+}
+.form-box .row .inp:-moz-placeholder{
+    color: #ccc
+}
+.form-box .row .inp:-ms-input-placeholder{
+    color: #ccc
+}
+.btn{
+    display: inline-block;
+    border-radius: 3px;
+    text-align: center;
+    background: #5fd2b5;
+    color: #fff;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 10px 0 20px ;
+}
+.btn:hover {
+    background: #4dddc0;
+    color: #fff
+}
